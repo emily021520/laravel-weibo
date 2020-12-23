@@ -11,9 +11,11 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $table = 'users';
+
     /**
      * The attributes that are mass assignable.
-     *
+     * 可批量分配的属性
      * @var array
      */
     protected $fillable = [
@@ -24,7 +26,7 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be hidden for arrays.
-     *
+     * 应该为数组隐藏的属性
      * @var array
      */
     protected $hidden = [
@@ -34,10 +36,14 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be cast to native types.
-     *
+     * 应强制转换为本机类型的属性
      * @var array
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+
 }
