@@ -1,3 +1,4 @@
+{{-- 基本html5的样式 基本视图 --}}
 <!DOCTYPE html>
 <html>
   <head>

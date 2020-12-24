@@ -26,3 +26,19 @@ Route::get('/about', 'StaticPagesController@about')->name('about');
 
 // 注册
 Route::get('signup', 'UsersController@create')->name('signup');
+
+//资源路由 等同于index create show store edit update destroy全一起了
+Route::resource('users', 'UsersController');
+
+
+
+
+
+
+/**
+
+    Route::get('/users/{user}', 'UsersController@show')->name('users.show');
+
+
+
+ */
