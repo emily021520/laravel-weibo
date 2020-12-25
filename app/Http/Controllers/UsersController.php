@@ -4,15 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Auth;
+/**
+ * 注册用户
+ */
 class UsersController extends Controller
 {
 
+    /**
+     * 显示注册页面
+     */
     public function create()
     {
         return view('users.create');
     }
 
+    /**
+     * 展示数据
+     */
     public function show(User $user)
     {
         //compact() 函数创建一个包含变量名和它们的值的数组,并作为第二个参数传递给view方法，将数据与视图进行绑定，这样子就可以得到数据库的信息啦。
@@ -21,7 +30,7 @@ class UsersController extends Controller
 
 
     /**
-     * 验证规则
+     * 验证规则 以及注册的逻辑
      * required 必须要填
      * unique 唯一性
      * min|max 长度验证
@@ -49,6 +58,8 @@ class UsersController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
+        //用户注册之后自动登录
+        Auth::login($user);
 
         //注册成功 提示信息
         session()->flash('success','欢迎，您将在这里开启一段新的旅程~');

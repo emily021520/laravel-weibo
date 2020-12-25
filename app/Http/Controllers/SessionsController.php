@@ -3,15 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
+/**
+ * 用户登录
+ */
 class SessionsController extends Controller
 {
+
+    /**
+     * 显示表单页面
+     */
     public function create()
     {
         return view('sessions.create');
     }
 
+
+    /**
+     * 处理登录逻辑
+     */
     public function store(Request $request)
     {
         $credentials = $this->validate($request, [
@@ -27,4 +38,8 @@ class SessionsController extends Controller
             return redirect()->back()->withInput();
         }
     }
+
+
+
+
 }

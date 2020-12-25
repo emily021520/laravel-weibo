@@ -16,5 +16,8 @@
         @include('layouts._footer') {{-- 底部 --}}
       </div>
     </div>
+
+    {{-- 引用js库 实现JavaScript动起来的感觉 --}}
+    <script src="{{ mix('js/app.js') }}"></script>
   </body>
 </html>
