@@ -30,11 +30,30 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+
+        //验证
         $this->validate($request,[
             'name' => 'required|unique:users|max:50',
             'email' => 'required|email|unique:users|max:255',
             'password' => 'required|confirmed|min:6'
         ]);
-        return;
+
+
+        //用户模型User::create创建之后会返回一个用户对象，并包含新注册用户的所有信息，再将这些值赋值给变量$user，并通过路由跳转来进行数据绑定：redirect()->route('users.show', [$user]); 等同于redirect()->route('users.show', [$user->id]);
+        $user = User::create([
+            /**
+             * 获取所有的值 $data = $request->all();
+             */
+            'name' => $request->name, //获取输入的name值
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+
+
+        //注册成功 提示信息
+        session()->flash('success','欢迎，您将在这里开启一段新的旅程~');
+
+        return redirect()->route('users.show',[$user]);
+
     }
 }

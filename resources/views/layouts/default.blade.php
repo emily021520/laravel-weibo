@@ -11,8 +11,9 @@
 
     <div class="container">
       <div class="offset-md-1 col-md-10">
-        @yield('content')
-        @include('layouts._footer')
+        @include('shared._messages') {{-- 数据库数据信息 --}}
+        @yield('content') {{-- 内容 --}}
+        @include('layouts._footer') {{-- 底部 --}}
       </div>
     </div>
   </body>
