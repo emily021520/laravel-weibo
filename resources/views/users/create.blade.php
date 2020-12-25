@@ -20,6 +20,12 @@
         --}}
 
 
+
+          {{-- 引用表单错误信息 --}}
+          @include('shared._errors')
+
+
+
         <div class="form-group">
           <label for="name">名称：</label>
           <input type="text" name="name" class="form-control" value="{{ old('name') }}">
