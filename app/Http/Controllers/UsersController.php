@@ -12,6 +12,26 @@ class UsersController extends Controller
 {
 
     /**
+     * 检验是否登录
+     */
+    public function __construct()
+    {
+        //只让未登录用户访问注册页面
+        $this->middleware('auth', [
+            'except' => ['show', 'create', 'store']
+        ]);
+
+
+        /**
+         * middleware接收两个参数，第一个为中间件的名称，第二个是要进行过滤的动作。
+         * 通过except方法来设定指定动作不使用Auth中间件进行过滤，意为，除了此处指定的动作以外，所有其他动作都必须登录才能访问。
+         */
+        $this->middleware('auth',[
+            'except' => ['show','create','store']
+        ]);
+    }
+
+    /**
      * 显示注册页面
      */
     public function create()
@@ -76,6 +96,9 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
+        //权策略定义完成之后，我们便可以通过在用户控制器中使用 authorize 方法来验证用户授权策略(是否id相同)
+        //权限系统(只能对自己用户操作)：https://learnku.com/courses/laravel-essential-training/8.x/permissions-system/9843
+        $this->authorize('update', $user);
         return view('users.edit',compact('user'));
     }
 
@@ -85,6 +108,8 @@ class UsersController extends Controller
      */
     public function update(User $user,Request $request)
     {
+
+        $this->authorize('update', $user);
 
         /**
          * 用户规则的密码那一栏nullable

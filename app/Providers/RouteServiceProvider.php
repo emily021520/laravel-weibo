@@ -2,7 +2,7 @@
 /*
  * @Author: liu shi shi
  * @Date: 2020-12-22 10:21:56
- * @LastEditTime: 2020-12-23 11:44:13
+ * @LastEditTime: 2020-12-25 17:11:35
  */
 
 namespace App\Providers;
@@ -19,10 +19,10 @@ class RouteServiceProvider extends ServiceProvider
      * The path to the "home" route for your application.
      *
      * This is used by Laravel authentication to redirect users after login.
-     *
+     * 失败之后返回的一个路径
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = '/';
 
     /**
      * The controller namespace for the application.
