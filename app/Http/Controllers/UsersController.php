@@ -65,6 +65,47 @@ class UsersController extends Controller
         session()->flash('success','欢迎，您将在这里开启一段新的旅程~');
 
         return redirect()->route('users.show',[$user]);
+    }
+
+
+    /**
+     * 编辑用户页面
+     * 路由像这样：Route::get('/users/{user}/edit', 'UsersController@edit')->name('users.edit');
+     * /users/1/edit
+     * compact() 函数创建一个包含变量名和它们的值的数组。
+     */
+    public function edit(User $user)
+    {
+        return view('users.edit',compact('user'));
+    }
+
+
+    /**
+     * 修改逻辑
+     */
+    public function update(User $user,Request $request)
+    {
+
+        /**
+         * 用户规则的密码那一栏nullable
+         * 当用户提供空白密码时也会通过验证，因此我们需要对传入的 password 进行判断，当其值不为空时才将其赋值给 data，避免将空白密码保存到数据库中。
+         */
+        $this->validate($request, [
+            'name' => 'required|max:50',
+            'password' => 'nullable|confirmed|min:6'
+        ]);
+
+        $data = [];
+        $data['name'] = $request->name;
+        if ($request->password) {
+            $data['password'] = bcrypt($request->password);
+        }
+        $user->update($data);
+
+        session()->flash('success', '个人资料更新成功！');
+
+        return redirect()->route('users.show', $user);
 
     }
+
 }

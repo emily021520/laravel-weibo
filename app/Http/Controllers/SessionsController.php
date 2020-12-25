@@ -34,6 +34,7 @@ class SessionsController extends Controller
             'password' => 'required'
         ]);
 
+
         /**
          * attempt()第一个参数是进行用户身份认证的数组，第二个参数为是否为用户开启【记住我】功能的布尔值，括号里面的值是表单里的name值
          */
@@ -56,8 +57,6 @@ class SessionsController extends Controller
         session()->flash('success','您已成功退出！');
         return redirect('login'); //并跳转到登录页面
     }
-
-
 
 
 
