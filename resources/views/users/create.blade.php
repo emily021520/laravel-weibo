@@ -9,8 +9,6 @@
     </div>
     <div class="card-body">
       <form method="POST" action="{{ route('users.store') }}">
-        {{ csrf_field() }}
-
         {{--
           经过POST方法提交时，Laravel 为了安全考虑，会让我们提供一个 token（令牌）来防止我们的应用受到 CSRF（跨站请求伪造）的攻击。
 
@@ -18,13 +16,12 @@
 
           CSRF 令牌基于会话（Session），过期时间在 config/session.php 文件中的 lifetime 选项做设定，默认为 2 个小时。
         --}}
+        {{ csrf_field() }}
 
 
 
-          {{-- 引用表单错误信息 --}}
-          @include('shared._errors')
-
-
+        {{-- 引用表单错误信息 --}}
+        @include('shared._errors')
 
         <div class="form-group">
           <label for="name">名称：</label>

@@ -27,18 +27,20 @@ Route::get('/about', 'StaticPagesController@about')->name('about');
 // 注册
 Route::get('signup', 'UsersController@create')->name('signup');
 
-//资源路由 等同于index create show store edit update destroy全一起了
+//资源路由 等同于index create show store edit update destroy全一起了 增删改查都有了 包括name=> Route::get('/users/{user}', 'UsersController@show')->name('users.show');
 Route::resource('users', 'UsersController');
 
+//显示登录页面
+Route::get('login', 'SessionsController@create')->name('login');
+
+//创建新会话(登录)
+Route::post('login', 'SessionsController@store')->name('login');
+
+//销毁会话 退出登录
+Route::delete('logout', 'SessionsController@destroy')->name('logout');
 
 
 
 
 
-/**
 
-    Route::get('/users/{user}', 'UsersController@show')->name('users.show');
-
-
-
- */
