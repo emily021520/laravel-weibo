@@ -1,6 +1,5 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,8 +38,8 @@ Route::post('login', 'SessionsController@store')->name('login');
 //销毁会话 退出登录
 Route::delete('logout', 'SessionsController@destroy')->name('logout');
 
-
-
+//用户激活功能  最终生成的激活链接为：http://weibo.test/signup/confirm/O1TTEr3faVq4fpzFXaOVQD4EAO9mQL
+Route::get('signup/confirm/{token}', 'UsersController@confirmEmail')->name('confirm_email');
 
 
 

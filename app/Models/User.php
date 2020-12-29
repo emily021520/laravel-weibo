@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -65,6 +66,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    /**
+     * 生成令牌
+     */
+    public static function boot()
+    {
+        //在用户模型类完成初始化之后进行加载，因此对事件的监听需要放在该方法中
+        parent::boot();
+
+        static::creating(function ($user){
+            $user->activation_token = Str::random(10);
+        });
+    }
 
 
 
