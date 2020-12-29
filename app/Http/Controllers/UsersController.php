@@ -17,8 +17,8 @@ class UsersController extends Controller
     public function __construct()
     {
         //只让未登录用户访问注册页面
-        $this->middleware('auth', [
-            'except' => ['show', 'create', 'store']
+        $this->middleware('guest', [
+            'only' => ['create']
         ]);
 
 
@@ -31,6 +31,19 @@ class UsersController extends Controller
         ]);
     }
 
+
+    /**
+     * 列出所有用户并分页展示
+     */
+    public function index()
+    {
+
+        //$users = User::all();
+        $users = User::paginate(6);
+        return view('users.index', compact('users'));
+    }
+
+
     /**
      * 显示注册页面
      */
@@ -38,6 +51,8 @@ class UsersController extends Controller
     {
         return view('users.create');
     }
+
+
 
     /**
      * 展示数据
@@ -130,7 +145,8 @@ class UsersController extends Controller
         session()->flash('success', '个人资料更新成功！');
 
         return redirect()->route('users.show', $user);
-
     }
+
+
 
 }

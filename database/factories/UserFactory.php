@@ -6,6 +6,9 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
+/**
+ * 模型工厂
+ */
 class UserFactory extends Factory
 {
     /**
