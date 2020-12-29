@@ -23,11 +23,12 @@ class UsersController extends Controller
 
 
         /**
+         * 必须登录之后才能进行下面操作
          * middleware接收两个参数，第一个为中间件的名称，第二个是要进行过滤的动作。
          * 通过except方法来设定指定动作不使用Auth中间件进行过滤，意为，除了此处指定的动作以外，所有其他动作都必须登录才能访问。
          */
         $this->middleware('auth',[
-            'except' => ['show','create','store']
+            'except' => ['show','create','store','index']
         ]);
     }
 
@@ -147,6 +148,19 @@ class UsersController extends Controller
         return redirect()->route('users.show', $user);
     }
 
+
+
+    /**
+     * 删除用户
+     */
+    public function destroy(User $user)
+    {
+        //只允许已登录的管理员进行删除操作
+        $this->authorize('destroy', $user);
+        $user->delete();
+        session()->flash('success','成功删除用户！');
+        return back();
+    }
 
 
 }

@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 
 /**
- * 模型工厂 新建的
+ * 模型工厂 新建的一个模型 为了创建模拟数据
  */
 class UsersTableSeeder extends Seeder
 {
@@ -27,6 +27,7 @@ class UsersTableSeeder extends Seeder
         $user = User::find(1);
         $user->name = 'Summer';
         $user->email = 'summer@example.com';
+        $user->is_admin = true; //生成的用户设置为管理员
         $user->save();
     }
 }
