@@ -4,6 +4,9 @@ namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
+/**
+ * 访问限流
+ */
 class Kernel extends HttpKernel
 {
     /**

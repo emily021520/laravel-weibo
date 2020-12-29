@@ -16,6 +16,25 @@ use Carbon\Carbon;
 class PasswordController extends Controller
 {
 
+    //限流密码重置邮件
+    public function __construct()
+    {
+
+        //发送密码重置邮件，限流规则为 —— 10 分钟内只能尝试 3 次
+        $this->middleware('throttle:3,10', [
+            'only' => ['sendResetLinkEmail']
+        ]);
+
+        /*
+            针对控制器showLinkRequestForm做了限流，一分钟内只能允许访问两次。
+            $this->middleware('throttle:2,1', [
+                'only' => ['showLinkRequestForm']
+            ]);
+        */
+    }
+
+
+
     //显示忘记密码表单页面
     public function showLinkRequestForm()
     {
