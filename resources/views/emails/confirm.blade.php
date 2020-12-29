@@ -1,3 +1,4 @@
+{{-- 注册时激活用户 --}}
 <!DOCTYPE html>
 <html>
 <head>

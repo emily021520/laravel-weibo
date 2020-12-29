@@ -38,8 +38,21 @@ Route::post('login', 'SessionsController@store')->name('login');
 //销毁会话 退出登录
 Route::delete('logout', 'SessionsController@destroy')->name('logout');
 
-//用户激活功能  最终生成的激活链接为：http://weibo.test/signup/confirm/O1TTEr3faVq4fpzFXaOVQD4EAO9mQL
+//用户激活功能 账户激活 最终生成的激活链接为：http://weibo.test/signup/confirm/O1TTEr3faVq4fpzFXaOVQD4EAO9mQL
 Route::get('signup/confirm/{token}', 'UsersController@confirmEmail')->name('confirm_email');
 
+
+
+//忘记密码：填写Email的表单 weibo.test/password/reset
+Route::get('password/reset',  'PasswordController@showLinkRequestForm')->name('password.request');
+
+//忘记密码：处理表单提交，成功的话就发送邮件，附带Token的链接
+Route::post('password/email',  'PasswordController@sendResetLinkEmail')->name('password.email');
+
+//忘记密码：显示更新密码的表单，包含token
+Route::get('password/reset/{token}',  'PasswordController@showResetForm')->name('password.reset');
+
+//忘记密码：对提交过来的token和email数据进行配对，正确的话则更新密码
+Route::post('password/reset',  'PasswordController@reset')->name('password.update');
 
 
