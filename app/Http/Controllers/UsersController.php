@@ -66,8 +66,17 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        //compact() 函数创建一个包含变量名和它们的值的数组,并作为第二个参数传递给view方法，将数据与视图进行绑定，这样子就可以得到数据库的信息啦。
-        return view('users.show',compact('user'));
+        /**
+         * 取出该用户发布过的所有微博。由于我们之前进行了模型关联，因此取出一个用户的所有微博可以通过statuses()
+         * 需要根据微博的创建时间 created_at 对微博进行排序，让新创建的微博靠前显示。我们使用 Eloquent 模型提供的 orderBy 方法，通过指定字段名和排序方式来对微博进行排序
+         * 分页 10行数据一行占一页
+         */
+        $statuses = $user->statuses()
+                         ->orderBy('created_at', 'desc')
+                         ->paginate(10);
+
+        //compact() 函数创建一个包含变量名和它们的值的数组,并作为第二个参数传递给view方法，将数据与视图进行绑定，这样子就可以得到数据库的信息啦。它也可以同时接收多个参数
+        return view('users.show',compact('user','statuses'));
     }
 
 

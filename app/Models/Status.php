@@ -27,13 +27,4 @@ class Status extends Model
         // 一条微博属于一个用户
         return $this->belongsTo(User::class);
     }
-
-    /**
-     * 一对多关联
-     */
-    public function statuses()
-    {
-        //一个用户拥有多条微博
-        return $this->hasMany(Status::class);
-    }
 }

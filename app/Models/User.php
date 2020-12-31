@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
+   
     use HasFactory, Notifiable;
 
     protected $table = 'users';
@@ -78,6 +79,16 @@ class User extends Authenticatable
         static::creating(function ($user){
             $user->activation_token = Str::random(10);
         });
+    }
+
+
+    /**
+     * 一对多关联 用户和微博之间的关联
+     */
+    public function statuses()
+    {
+        //一个用户拥有多条微博
+        return $this->hasMany(Status::class);
     }
 
 
