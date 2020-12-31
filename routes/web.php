@@ -55,4 +55,5 @@ Route::get('password/reset/{token}',  'PasswordController@showResetForm')->name(
 //忘记密码：对提交过来的token和email数据进行配对，正确的话则更新密码
 Route::post('password/reset',  'PasswordController@reset')->name('password.update');
 
-
+//创建和删除微博
+Route::resource('statuses', 'StatusesController', ['only' => ['store', 'destroy']]);
