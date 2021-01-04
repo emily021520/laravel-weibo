@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
-   
+
     use HasFactory, Notifiable;
 
     protected $table = 'users';
@@ -100,6 +100,60 @@ class User extends Authenticatable
     {
         return $this->statuses()
                     ->orderBy('created_at', 'desc');
+    }
+
+
+    /**
+     * 获取粉丝关系列表
+     * 多对多关系，一个用户(粉丝)能够关注多个人，而被关注着能够拥有多个粉丝
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(User::Class, 'followers', 'user_id', 'follower_id');
+    }
+
+
+    /**
+     * 获取用户关注人的列表
+     */
+    public function followings()
+    {
+        return $this->belongsToMany(User::Class, 'followers', 'follower_id', 'user_id');
+    }
+
+
+    /**
+     * 关注
+     */
+    public function follow($user_ids)
+    {
+        //is_array 用于判断参数是否为数组，如果已经是数组，则没有必要再使用 compact 方法
+        if (!is_array($user_ids)) {
+            $user_ids = compact('user_ids');
+        }
+        //我们并没有给 sync 和 detach 指定传递参数为用户的 id，这两个方法会自动获取数组中的 id。
+        $this->followings()->sync($user_ids, false);
+    }
+
+
+    /**
+     * 取消关注
+     */
+    public function unfollow($user_ids)
+    {
+        if (!is_array($user_ids)) {
+            $user_ids = compact('user_ids');
+        }
+        $this->followings()->detach($user_ids);
+    }
+
+
+    /**
+     * 判断当前登录的用户 A 是否关注了用户 B，代码实现逻辑很简单，我们只需判断用户 B 是否包含在用户 A 的关注人列表上即可。这里我们将用到 contains 方法来做判断。
+     */
+    public function isFollowing($user_id)
+    {
+        return $this->followings->contains($user_id);
     }
 
 }
