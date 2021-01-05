@@ -1,4 +1,9 @@
 <?php
+/*
+ * @Author: liu shi shi
+ * @Date: 2020-12-22 10:21:56
+ * @LastEditTime: 2021-01-05 09:29:09
+ */
 
 namespace Database\Seeders;
 
@@ -27,8 +32,9 @@ class DatabaseSeeder extends Seeder
          */
         Model::unguard();
 
-        $this->call(UsersTableSeeder::class);
-        $this->call(StatusesTableSeeder::class);
+        $this->call(UsersTableSeeder::class); //用户
+        $this->call(StatusesTableSeeder::class); //权限 管理员
+        $this->call(FollowersTableSeeder::class); //用户关注
 
         Model::reguard();
     }
