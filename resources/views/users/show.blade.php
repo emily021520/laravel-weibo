@@ -9,6 +9,12 @@
       @include('shared._user_info', ['user' => $user])
     </section>
 
+   {{--  Auth::check() 方法来判断用户是否已登录 --}}
+    @if (Auth::check())
+      @include('users._follow_form')
+    @endif
+
+
     <section class="stats mt-2">
       @include('shared._stats', ['user' => $user])
     </section>
